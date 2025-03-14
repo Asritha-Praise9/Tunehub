@@ -32,7 +32,7 @@ public class SongController {
 	
 	
 }
-	@GetMapping("/ViewSongs") 
+	@GetMapping("/viewSongs") 
 	public String ViewSongs(Model model) {
 	
 	List<Song> songsList = service.fetchAllSongs();
@@ -53,6 +53,5 @@ public class SongController {
 	} else {
 		return "makePayment";
 	}
-		
 }
 }
