@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/style.css}" >
 </head>
 <body>
+<h1> Add new Song in your Playlist </h1>
       <form action="addSong" method="post">
-      <label>Song name : </label>
+      <label>Name : </label>
       <input type="text" name="name" />
       <br  />
-      
-      <label>Song Artist : </label>
+      <br />
+      <label>Artist : </label>
       <input type="text" name="artist" />
       <br  />
-      
-      <label>Song Genre : </label>
+      <br />
+      <label>Genre : </label>
       <input type="text" name="genre" />
       <br  />
-      
-      <label>Song Link : </label>
+      <br />
+      <label>Link : </label>
       <input type="text" name="link" />
       <br  />
-      
+      <br />
       <input type="submit" value="ADD SONG">
       </form>
 </body>

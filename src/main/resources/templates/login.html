@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Login page</title>
+<link rel="stylesheet" th:href="@{/css/style.css}" >
 </head>
-<body>
+<body background="image1.jpg">
 <h1>User Login: </h1>
-<form action="validate" method="post">
+
+<form action="/validate" method="post">
 <label>Email: </label>
          <input type="email" name="email" />
-         <br>
+         <br />
+         <br />
          <label>Password: </label>
          <input type="password" name="password" />
-         <br>
+         <br />
+         <br />
          <input type="submit" value="LOGIN">
 </form>
 </body>

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>create Playlist page</title>
+<link rel="stylesheet" th:href="@{/css/style.css}" >
 </head>
 <body>
-      <form action="addPlaylist">
+<h1>Create your own Playlist...</h1>
+      <form action="addPlaylist" method="post">
           <label>Playlist name:</label>
           <input type="text" name = "name">
           
@@ -14,6 +16,7 @@
               <input type="checkbox" th:name="songs" th:value="${song.id}" />
               <label th:text="${song.name}"></label>
           </div>
+      <br />
       
       <input type="submit" value="ADD PLAYLIST">
       
