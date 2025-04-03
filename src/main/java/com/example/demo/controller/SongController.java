@@ -32,8 +32,8 @@ public class SongController {
 	
 	
 }
-	@GetMapping("/viewSongs") 
-	public String ViewSongs(Model model) {
+	@GetMapping("/ViewSongs") 
+	public String viewSongs(Model model) {
 	
 	List<Song> songsList = service.fetchAllSongs();
 	

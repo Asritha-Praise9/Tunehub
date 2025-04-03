@@ -28,21 +28,6 @@ public class PaymentController {
 		
 		return "pay";
 	}
-	
-	@GetMapping("/payment-success")
-	public String paymentSuccess(HttpSession session) {
-		String mail =  (String) session.getAttribute("email");
-		Users u = service.getUser(mail);
-		u.setPremium(true);
-		service.updateUser(u);
-		return "customerHome";
-	}
-	
-	@GetMapping("/payment-failure")
-	public String paymentFailure() {
-		return "customerHome";
-	}
-
 	@SuppressWarnings("finally")
 	@PostMapping("/createOrder")
 	@ResponseBody
@@ -88,4 +73,19 @@ public class PaymentController {
 	        return false;
 	    }
 	}
+
+	@GetMapping("/payment-success")
+	public String paymentSuccess(HttpSession session) {
+		String mail =  (String) session.getAttribute("email");
+		Users u = service.getUser(mail);
+		u.setPremium(true);
+		service.updateUser(u);
+		return "login";
+	}
+	
+	@GetMapping("/payment-failure")
+	public String paymentFailure() {
+		return "login";
+	}
+
 }

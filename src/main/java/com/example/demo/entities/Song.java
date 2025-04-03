@@ -5,12 +5,7 @@ import java.util.List;
 import jakarta.persistence.*;
 @Entity
 public class Song {
-	@Override
-	public String toString() {
-		return "Song [id=" + id + ", name=" + name + ", artist=" + artist + ", genre=" + genre + ", link=" + link
-				+ ", playlists=" + playlists + "]";
-	}
-
+	
 	public int getId() {
 		return id;
 	}

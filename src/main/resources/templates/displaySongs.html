@@ -1,17 +1,32 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<style type="text/css">
-iframe{
-       height:100px;
-       width:500px;
-     }
-</style>
+   <meta charset="UTF-8">
+   <title>View Songs</title>
+   <link rel="stylesheet" th:href="@{/css/style.css}" >
+   <style>
+	  audio {
+		height: 30px;
+		width: 300px;
+	  }
+	  table {
+		width: 80%;
+		margin: auto;
+		border-collapse: collapse;
+	  }
+	  th, td{
+		padding: 10px;
+		border: 1px solid black;
+		text-align: left;
+	  }
+
+   </style>
 </head>
 <body>
-      <table>
+	<h2 style="text-align:center;">Song List</h2>
+      <table border=1>
           <thead>
                <tr>
                   <th>Name</th>
@@ -21,13 +36,14 @@ iframe{
                </tr>
           </thead>
         <tbody>
-             <tr th:each="song:${songs}">
+             <tr th:each="song : ${songs}">
                <td th:text="${song.name}"></td>
                <td th:text="${song.artist}"></td>
                <td th:text="${song.genre}"></td>
                <td>
                <audio controls>
                    <source th:src="${song.link}" type="audio/mpeg">
+				   Your browser does not support audio element
                </audio>
                
                </td>

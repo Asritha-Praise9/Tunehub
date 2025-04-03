@@ -1,13 +1,18 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.entities.Song;
 import com.example.demo.entities.Users;
+import com.example.demo.services.SongService;
 import com.example.demo.services.UsersService;
 
 import jakarta.servlet.http.HttpSession;
@@ -16,54 +21,66 @@ import jakarta.servlet.http.HttpSession;
 public class UsersController {
     @Autowired
 	UsersService service;
+    
+    @Autowired
+    SongService songService; 
+    
 	@PostMapping("/register")
-    public String addUsers(@ModelAttribute Users user) {
-		boolean userStatus = service.emailExists(user.getEmail());
-		if(userStatus == false) {
-		service.addUser(user);
-    	System.out.println("user added");
+	public String addUser(@ModelAttribute Users user) {
+		boolean userstatus = service.emailExists
+				(user.getEmail());
+		if(userstatus == false) {
+			service.addUser(user);
+			return "login";
 		}
-		else {
-			System.out.println("user already exists");
+		else
+		{
+			return "login";
 		}
-    	return "home";
-    	
-    }
-	@PostMapping("/validate")
-	public String validate(@RequestParam("email")String email, 
-		@RequestParam("password")String password,
-		HttpSession session) {
-		
-		if(service.validateUser(email,password) == true) {
-			String role = service.getRole(email);
+	}
+	@PostMapping("/login")
+	public String validateUser(@RequestParam String email,
+			@RequestParam String password, HttpSession session)
+	{
+		//invoking validateUser() in service
+		if(service.validateUser(email, password) == true)
+		{
 			
 			session.setAttribute("email", email);
+			//checking whether the user is admin or customer
+			if(service.getRole(email).equals("admin"))
+			{
+				return "adminhome";
+			}
+			else
+			{
+				return "customerhome";
+			}
+		}
+		else
+		{
+			return "login";
+		}
+	}
+    @GetMapping("/exploreSongs")
+	public String exploreSongs(HttpSession session, Model model) {
+			String email = (String) session.getAttribute("email");
 			
-			if(role.equals("admin")) {
-			return "adminHome";
-
-		} else {
-			return "customerHome";
-		}
+			if (email == null) {
+				return "redirect:/login";
+			}
+			
+			Users user = service.getUser(email);
+			if(user!= null && user.isPremium()) {
+				List<Song> songslist = songService.fetchAllSongs();
+				model.addAttribute("songs", songslist);
+				return "displaySongs";
+			}
+			else {
+				return "pay";
+			}
 	}
-	else {
-		return "login";
-	}
-	}
-	@GetMapping("/pay")
-	public String pay(@RequestParam String email) {
-		
-		boolean paymentStatus = false;
-		
-		if(paymentStatus == true) {
-			Users user = ((UsersService) service).getUser(email);
-			user.setPremium(true);
-			((UsersService) service).updateUser(user);
-		}
-		
-		return "login";
-		
-	}
+	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		

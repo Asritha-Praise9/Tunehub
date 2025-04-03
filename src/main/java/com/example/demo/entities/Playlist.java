@@ -6,10 +6,7 @@ import jakarta.persistence.*;
 
 @Entity
 public class Playlist {
-	@Override
-	public String toString() {
-		return "Playlist [id=" + id + ", name=" + name + ", songs=" + songs + "]";
-	}
+	
 	public int getId() {
 		return id;
 	}
