@@ -1,1 +1,1 @@
-# Tunehub
+# Code for music streaming application
